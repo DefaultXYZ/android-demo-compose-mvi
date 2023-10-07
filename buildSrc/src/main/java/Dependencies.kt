@@ -1,7 +1,7 @@
 
 object Versions {
     const val gradlePlugin = "8.1.2"
-    const val kotlinAndroid = "1.8.10"
+    const val kotlin = "1.8.10"
     const val hiltAndroid = "2.48.1"
 
     const val lifecycle = "2.6.2"
@@ -17,7 +17,8 @@ object Dependencies {
     const val composeUI = "androidx.compose.ui:ui"
     const val composeUIGraphics = "androidx.compose.ui:ui-graphics"
     const val composeUIToolingPreview = "androidx.compose.ui:ui-tooling-preview"
-    const val composeMaterial = "androidx.compose.material3:material3"
+    const val composeMaterial = "androidx.compose.material:material:1.5.3"
+    const val composeMaterial3 = "androidx.compose.material3:material3"
     const val composeDebugUITooling = "androidx.compose.ui:ui-tooling"
     const val composeDebugUITestManifest = "androidx.compose.ui:ui-test-manifest"
 
@@ -35,7 +36,18 @@ object Dependencies {
 
 object Plugins {
     const val androidApplication = "com.android.application"
+    const val androidLibrary = "com.android.library"
     const val kotlinAndroid = "org.jetbrains.kotlin.android"
+    const val javaLibrary = "java-library"
+    const val kotlinJvm = "org.jetbrains.kotlin.jvm"
     const val kotlinKapt = "kotlin-kapt"
     const val hiltAndroid = "com.google.dagger.hilt.android"
+}
+
+object Modules {
+    const val login = ":presentation:login"
+    const val featureA = ":presentation:feature-a"
+    const val featureB = ":presentation:feature-b"
+    const val featureC = ":presentation:feature-c"
+    const val coreUI = ":core:ui"
 }

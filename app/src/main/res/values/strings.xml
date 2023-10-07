@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Demo Compose</string>
+
+    <string name="bottom_bar_feature_a_title">Feature A</string>
+    <string name="bottom_bar_feature_a_accessibility">Bottom Bar Item Feature A</string>
+    <string name="bottom_bar_feature_b_title">Feature B</string>
+    <string name="bottom_bar_feature_b_accessibility">Bottom Bar Item Feature B</string>
+    <string name="bottom_bar_feature_c_title">Feature C</string>
+    <string name="bottom_bar_feature_c_accessibility">Bottom Bar Item Feature C</string>
 </resources>

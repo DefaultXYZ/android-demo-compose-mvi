@@ -15,4 +15,8 @@ dependencyResolutionManagement {
 
 rootProject.name = "Demo Compose"
 include(":app")
-include(":presentation:feature-first")
+include(":presentation:feature-a")
+include(":presentation:feature-b")
+include(":presentation:feature-c")
+include(":presentation:login")
+include(":core:ui")

@@ -2,7 +2,7 @@ import org.gradle.api.JavaVersion
 
 object AndroidConfig {
     const val applicationId = "com.defaultxyz.demo"
-    const val namespace = applicationId
+    const val namespace = "com.defaultxyz"
 
     const val compileSdk = 34
     const val minSdk = 24
@@ -19,4 +19,8 @@ object AndroidConfig {
         }
 
     val javaVersion = JavaVersion.VERSION_17
+
+    fun getNamespace(module: String): String {
+        return "$namespace.$module"
+    }
 }

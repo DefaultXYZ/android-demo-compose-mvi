@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = AndroidConfig.namespace
+    namespace = AndroidConfig.getNamespace("demo")
     compileSdk = AndroidConfig.compileSdk
 
     defaultConfig {
@@ -49,6 +49,12 @@ android {
 }
 
 dependencies {
+    implementation(project(Modules.login))
+    implementation(project(Modules.featureA))
+    implementation(project(Modules.featureB))
+    implementation(project(Modules.featureC))
+    implementation(project(Modules.coreUI))
+
     implementation(Dependencies.coreKtx)
     implementation(Dependencies.lifecycleKtx)
     implementation(Dependencies.viewModelKtx)
@@ -58,6 +64,7 @@ dependencies {
     implementation(Dependencies.composeUIGraphics)
     implementation(Dependencies.composeUIToolingPreview)
     implementation(Dependencies.composeMaterial)
+    implementation(Dependencies.composeMaterial3)
 
     implementation(Dependencies.hiltAndroid)
     implementation(Dependencies.hiltNavigation)
