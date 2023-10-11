@@ -1,14 +1,15 @@
-
 object Versions {
     const val gradlePlugin = "8.1.2"
     const val kotlin = "1.8.10"
     const val hiltAndroid = "2.48.1"
 
     const val lifecycle = "2.6.2"
+    const val coroutines = "1.7.3"
 }
 
 object Dependencies {
     const val coreKtx = "androidx.core:core-ktx:1.12.0"
+    const val lifecycleCompose = "androidx.lifecycle:lifecycle-runtime-compose:${Versions.lifecycle}"
     const val lifecycleKtx = "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.lifecycle}"
     const val viewModelKtx = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycle}"
     const val activity = "androidx.activity:activity-compose:1.7.2"
@@ -23,10 +24,12 @@ object Dependencies {
     const val composeDebugUITestManifest = "androidx.compose.ui:ui-test-manifest"
 
     const val hiltAndroid = "com.google.dagger:hilt-android:${Versions.hiltAndroid}"
+    const val hiltCore = "com.google.dagger:hilt-core:${Versions.hiltAndroid}"
     const val hiltNavigation = "androidx.hilt:hilt-navigation-compose:1.0.0"
     const val hiltKapt = "com.google.dagger:hilt-android-compiler:${Versions.hiltAndroid}"
 
-    const val coroutinesAndroid = "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3"
+    const val coroutinesAndroid = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}"
+    const val coroutinesCore = "org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:${Versions.coroutines}"
 
     const val junit = "junit:junit:4.13.2"
     const val androidxJunit = "androidx.test.ext:junit:1.1.5"
@@ -49,5 +52,9 @@ object Modules {
     const val featureA = ":presentation:feature-a"
     const val featureB = ":presentation:feature-b"
     const val featureC = ":presentation:feature-c"
+    const val domain = ":domain"
+    const val dataStore = ":data:store"
+    const val dataModel = ":data:model"
     const val coreUI = ":core:ui"
+    const val coreUtils = ":core:utils"
 }

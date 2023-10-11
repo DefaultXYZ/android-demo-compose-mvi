@@ -11,7 +11,9 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
@@ -29,16 +31,17 @@ import com.defaultxyz.ui.routing.ScreenRoute
 @Composable
 fun DemoMainScreen(
     modifier: Modifier = Modifier,
-    viewModel: DemoMainViewModel = hiltViewModel(),
+    viewModel: DemoMainViewModel = hiltViewModel()
 ) {
-    val state by viewModel.state.collectAsState()
-
+    val navController = rememberNavController()
+    val state by viewModel.state.collectAsStateWithLifecycle()
+    viewModel.onReceiveIntent(DemoMainIntent.LoadLoginState)
     DemoComposeTheme {
         Surface(modifier = modifier) {
-            if (!state.isLoggedIn) {
+            if (state is DemoMainState.LoggedIn) {
+                DemoMainContent(navController = navController)
+            } else if (state is DemoMainState.NoUserExists) {
                 LoginScreen()
-            } else {
-                DemoMainContent()
             }
         }
     }
@@ -56,7 +59,7 @@ private val startNavigationItem = navigationItems[0]
 @Composable
 fun DemoMainContent(
     modifier: Modifier = Modifier,
-    navHostController: NavHostController = rememberNavController()
+    navController: NavHostController
 ) {
     var topBarTitle: Int by remember {
         mutableIntStateOf(startNavigationItem.title)
@@ -65,7 +68,7 @@ fun DemoMainContent(
         modifier = modifier,
         bottomBar = {
             DemoBottomNavBar(
-                navController = navHostController,
+                navController = navController,
                 navItems = navigationItems,
                 onItemSelected = {
                     topBarTitle = it.title
@@ -73,18 +76,18 @@ fun DemoMainContent(
             )
         },
         topBar = {
-            DemoTopBar(title = topBarTitle)
+            DemoTopBar(title = stringResource(topBarTitle))
         }
     ) { innerPadding ->
         NavHost(
             modifier = Modifier.padding(innerPadding),
-            navController = navHostController,
+            navController = navController,
             startDestination = ScreenRoute.FeatureA.route
         ) {
-            loginGraph(navHostController)
-            featureAGraph(navHostController)
-            featureBGraph(navHostController)
-            featureCGraph(navHostController)
+            loginGraph(navController)
+            featureAGraph(navController)
+            featureBGraph(navController)
+            featureCGraph(navController)
         }
     }
 }

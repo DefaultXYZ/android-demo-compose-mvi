@@ -37,9 +37,12 @@ android {
 }
 
 dependencies {
+    implementation(project(Modules.domain))
     implementation(project(Modules.coreUI))
+    implementation(project(Modules.coreUtils))
 
     implementation(Dependencies.coreKtx)
+    implementation(Dependencies.lifecycleCompose)
     implementation(Dependencies.lifecycleKtx)
     implementation(Dependencies.viewModelKtx)
     implementation(Dependencies.activity)

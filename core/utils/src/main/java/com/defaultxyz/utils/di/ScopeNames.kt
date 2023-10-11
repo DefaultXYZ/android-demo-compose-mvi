@@ -1,4 +1,4 @@
-package com.defaultxyz.demo.di
+package com.defaultxyz.utils.di
 
 import javax.inject.Qualifier
 
