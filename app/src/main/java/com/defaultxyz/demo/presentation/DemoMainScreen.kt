@@ -5,7 +5,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
@@ -24,8 +23,7 @@ import com.defaultxyz.demo.ui.theme.DemoComposeTheme
 import com.defaultxyz.feature.a.featureAGraph
 import com.defaultxyz.feature.b.featureBGraph
 import com.defaultxyz.feature.c.featureCGraph
-import com.defaultxyz.login.LoginScreen
-import com.defaultxyz.login.loginGraph
+import com.defaultxyz.login.presentation.login.LoginScreen
 import com.defaultxyz.ui.routing.ScreenRoute
 
 @Composable
@@ -35,13 +33,15 @@ fun DemoMainScreen(
 ) {
     val navController = rememberNavController()
     val state by viewModel.state.collectAsStateWithLifecycle()
-    viewModel.onReceiveIntent(DemoMainIntent.LoadLoginState)
+    viewModel.handleIntent(DemoMainIntent.LoadLoginState)
     DemoComposeTheme {
-        Surface(modifier = modifier) {
+        Surface(modifier) {
             if (state is DemoMainState.LoggedIn) {
-                DemoMainContent(navController = navController)
+                DemoMainContent(navController)
             } else if (state is DemoMainState.NoUserExists) {
-                LoginScreen()
+                LoginScreen(onLoginSuccess = {
+                    viewModel.handleIntent(DemoMainIntent.LoadLoginState)
+                })
             }
         }
     }
@@ -58,8 +58,8 @@ private val startNavigationItem = navigationItems[0]
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DemoMainContent(
-    modifier: Modifier = Modifier,
-    navController: NavHostController
+    navController: NavHostController,
+    modifier: Modifier = Modifier
 ) {
     var topBarTitle: Int by remember {
         mutableIntStateOf(startNavigationItem.title)
@@ -84,7 +84,7 @@ fun DemoMainContent(
             navController = navController,
             startDestination = ScreenRoute.FeatureA.route
         ) {
-            loginGraph(navController)
+//            loginGraph(navController)
             featureAGraph(navController)
             featureBGraph(navController)
             featureCGraph(navController)

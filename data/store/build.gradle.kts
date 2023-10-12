@@ -32,6 +32,11 @@ android {
 
 dependencies {
     implementation(project(Modules.dataModel))
+    implementation(project(Modules.coreUtils))
+
+    implementation(Dependencies.room)
+    implementation(Dependencies.roomKtx)
+    kapt(Dependencies.roomKapt)
 
     implementation(Dependencies.hiltAndroid)
     kapt(Dependencies.hiltKapt)

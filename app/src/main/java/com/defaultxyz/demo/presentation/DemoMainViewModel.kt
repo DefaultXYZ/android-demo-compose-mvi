@@ -1,32 +1,29 @@
 package com.defaultxyz.demo.presentation
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.defaultxyz.domain.login.GetUserLoginUseCase
+import com.defaultxyz.domain.login.IsUserExistsUseCase
+import com.defaultxyz.ui.base.BaseIntent
+import com.defaultxyz.ui.base.BaseState
+import com.defaultxyz.ui.base.BaseViewModel
 import com.defaultxyz.utils.di.IODispatcher
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class DemoMainViewModel @Inject constructor(
     @IODispatcher private val dispatcher: CoroutineDispatcher,
-    private val getUserLoginUseCase: GetUserLoginUseCase
-) : ViewModel() {
-    private val _state = MutableStateFlow<DemoMainState>(DemoMainState.Loading)
-    val state: StateFlow<DemoMainState> = _state
-
-    fun onReceiveIntent(intent: DemoMainIntent) {
+    private val isUserExistsUseCase: IsUserExistsUseCase
+) : BaseViewModel<DemoMainIntent, DemoMainState>(DemoMainState.Loading) {
+    override fun handleIntent(intent: DemoMainIntent) {
         when (intent) {
             DemoMainIntent.LoadLoginState -> {
                 viewModelScope.launch(dispatcher) {
-                    if (getUserLoginUseCase.get()) {
-                        _state.emit(DemoMainState.LoggedIn)
+                    if (isUserExistsUseCase()) {
+                        mutableState.emit(DemoMainState.LoggedIn)
                     } else {
-                        _state.emit(DemoMainState.NoUserExists)
+                        mutableState.emit(DemoMainState.NoUserExists)
                     }
                 }
             }
@@ -34,11 +31,11 @@ class DemoMainViewModel @Inject constructor(
     }
 }
 
-sealed class DemoMainIntent {
-    object LoadLoginState: DemoMainIntent()
+sealed class DemoMainIntent : BaseIntent() {
+    object LoadLoginState : DemoMainIntent()
 }
 
-sealed class DemoMainState {
+sealed class DemoMainState : BaseState() {
     object Loading : DemoMainState()
     object LoggedIn : DemoMainState()
     object NoUserExists : DemoMainState()

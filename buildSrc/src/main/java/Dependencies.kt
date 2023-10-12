@@ -4,6 +4,7 @@ object Versions {
     const val hiltAndroid = "2.48.1"
 
     const val lifecycle = "2.6.2"
+    const val room = "2.5.2"
     const val coroutines = "1.7.3"
 }
 
@@ -22,6 +23,12 @@ object Dependencies {
     const val composeMaterial3 = "androidx.compose.material3:material3"
     const val composeDebugUITooling = "androidx.compose.ui:ui-tooling"
     const val composeDebugUITestManifest = "androidx.compose.ui:ui-test-manifest"
+
+    const val navigationCompose = "androidx.navigation:navigation-compose:2.7.3"
+
+    const val room = "androidx.room:room-runtime:${Versions.room}"
+    const val roomKtx = "androidx.room:room-ktx:${Versions.room}"
+    const val roomKapt = "androidx.room:room-compiler:${Versions.room}"
 
     const val hiltAndroid = "com.google.dagger:hilt-android:${Versions.hiltAndroid}"
     const val hiltCore = "com.google.dagger:hilt-core:${Versions.hiltAndroid}"
@@ -56,5 +63,6 @@ object Modules {
     const val dataStore = ":data:store"
     const val dataModel = ":data:model"
     const val coreUI = ":core:ui"
+    const val coreLocalisation = ":core:localisation"
     const val coreUtils = ":core:utils"
 }

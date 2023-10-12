@@ -39,6 +39,7 @@ android {
 dependencies {
     implementation(project(Modules.domain))
     implementation(project(Modules.coreUI))
+    implementation(project(Modules.coreLocalisation))
     implementation(project(Modules.coreUtils))
 
     implementation(Dependencies.coreKtx)

@@ -9,7 +9,7 @@ import androidx.compose.material.icons.outlined.Edit
 import androidx.compose.material.icons.outlined.List
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.ui.graphics.vector.ImageVector
-import com.defaultxyz.demo.R
+import com.defaultxyz.localisation.R
 import com.defaultxyz.ui.routing.ScreenRoute
 
 sealed class NavigationItem(

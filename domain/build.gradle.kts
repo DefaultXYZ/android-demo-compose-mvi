@@ -32,6 +32,7 @@ android {
 
 dependencies {
     implementation(project(Modules.dataModel))
+    implementation(project(Modules.dataStore))
 
     implementation(Dependencies.hiltAndroid)
     kapt(Dependencies.hiltKapt)

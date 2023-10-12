@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Demo Compose</string>
 
@@ -7,4 +8,14 @@
     <string name="bottom_bar_feature_b_accessibility">Bottom Bar Item Feature B</string>
     <string name="bottom_bar_feature_c_title">Feature C</string>
     <string name="bottom_bar_feature_c_accessibility">Bottom Bar Item Feature C</string>
+
+    <string name="login_screen">Login to continue</string>
+    <string name="login_generate_new_name">Generate</string>
+    <string name="login_button_login">Login</string>
+
+    <string name="login_success_title">Login is successful</string>
+
+    <string name="feature_a">Screen Feature A</string>
+    <string name="feature_b">Screen Feature B</string>
+    <string name="feature_c">Screen Feature C</string>
 </resources>

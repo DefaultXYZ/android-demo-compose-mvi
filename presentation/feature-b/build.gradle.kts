@@ -39,6 +39,7 @@ android {
 dependencies {
     implementation(project(Modules.domain))
     implementation(project(Modules.coreUI))
+    implementation(project(Modules.coreLocalisation))
     implementation(project(Modules.coreUtils))
 
     implementation(Dependencies.coreKtx)
@@ -51,6 +52,7 @@ dependencies {
     implementation(Dependencies.composeUIGraphics)
     implementation(Dependencies.composeUIToolingPreview)
     implementation(Dependencies.composeMaterial3)
+    implementation(Dependencies.navigationCompose)
 
     implementation(Dependencies.hiltAndroid)
     implementation(Dependencies.hiltNavigation)
