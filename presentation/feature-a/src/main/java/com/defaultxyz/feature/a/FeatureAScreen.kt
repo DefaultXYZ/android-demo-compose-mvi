@@ -20,6 +20,6 @@ fun FeatureAScreen(
     viewModel.handleIntent(FeatureAIntent.FetchCurrentUser)
     Column(modifier) {
         Header(stringResource(R.string.feature_a))
-        Body((state as? FeatureAState.UserReceived)?.username.orEmpty())
+        Body(state.username.orEmpty())
     }
 }

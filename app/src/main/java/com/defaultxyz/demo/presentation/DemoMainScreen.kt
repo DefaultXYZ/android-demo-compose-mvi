@@ -36,9 +36,11 @@ fun DemoMainScreen(
     viewModel.handleIntent(DemoMainIntent.LoadLoginState)
     DemoComposeTheme {
         Surface(modifier) {
-            if (state is DemoMainState.LoggedIn) {
+            if (state.isLoggedIn == null) return@Surface
+
+            if (state.isLoggedIn == true) {
                 DemoMainContent(navController)
-            } else if (state is DemoMainState.NoUserExists) {
+            } else {
                 LoginScreen(onLoginSuccess = {
                     viewModel.handleIntent(DemoMainIntent.LoadLoginState)
                 })

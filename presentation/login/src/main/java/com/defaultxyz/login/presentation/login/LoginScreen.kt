@@ -23,15 +23,13 @@ fun LoginScreen(
     val state by viewModel.state.collectAsStateWithLifecycle()
     Column(modifier) {
         SideEffect {
-            if (state == LoginState.LoginSuccessful) {
+            if (state.loginSuccessful == true) {
                 onLoginSuccess()
             }
         }
         Header(stringResource(R.string.login_screen))
 
-        (state as? LoginState.NewNameReceived)?.apply {
-            Body("$firstName $lastName")
-        }
+        Body(state.username)
 
         Button(onClick = {
             viewModel.handleIntent(LoginIntent.GenerateRandomName)
@@ -40,8 +38,13 @@ fun LoginScreen(
         }
 
         Button(onClick = {
-            (state as? LoginState.NewNameReceived)?.apply {
-                viewModel.handleIntent(LoginIntent.SaveUser(firstName, lastName))
+            if (state.hasUsername) {
+                viewModel.handleIntent(
+                    LoginIntent.SaveUser(
+                        state.firstName.orEmpty(),
+                        state.lastName.orEmpty()
+                    )
+                )
             }
         }) {
             Text(stringResource(R.string.login_button_login))

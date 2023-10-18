@@ -17,7 +17,7 @@ class LoginViewModel @Inject constructor(
     @IODispatcher private val ioDispatcher: CoroutineDispatcher,
     private val getRandomUserUseCase: GetRandomUserUseCase,
     private val saveUserUseCase: SaveUserUseCase
-) : BaseViewModel<LoginIntent, LoginState>(LoginState.Loading) {
+) : BaseViewModel<LoginIntent, LoginState>(LoginState()) {
     override fun handleIntent(intent: LoginIntent) {
         when (intent) {
             LoginIntent.GenerateRandomName -> generateRandomName()
@@ -28,7 +28,10 @@ class LoginViewModel @Inject constructor(
     private fun generateRandomName() {
         viewModelScope.launch(ioDispatcher) {
             getRandomUserUseCase().let {
-                LoginState.NewNameReceived(firstName = it.first, lastName = it.second)
+                stateValue.copy(
+                    firstName = it.first,
+                    lastName = it.second
+                )
             }.emit()
         }
     }
@@ -36,7 +39,9 @@ class LoginViewModel @Inject constructor(
     private fun saveUser(firstName: String, lastName: String) {
         viewModelScope.launch(ioDispatcher) {
             saveUserUseCase(firstName to lastName)
-            LoginState.LoginSuccessful.emit()
+            stateValue.copy(
+                loginSuccessful = true
+            ).emit()
         }
     }
 
@@ -50,12 +55,14 @@ sealed class LoginIntent : BaseIntent() {
     ) : LoginIntent()
 }
 
-sealed class LoginState : BaseState() {
-    object Loading : LoginState()
-    data class NewNameReceived(
-        val firstName: String,
-        val lastName: String
-    ) : LoginState()
+data class LoginState(
+    val firstName: String? = null,
+    val lastName: String? = null,
+    val loginSuccessful: Boolean? = null
+) : BaseState {
+    val username: String
+        get() = listOfNotNull(firstName, lastName).joinToString(" ")
 
-    object LoginSuccessful : LoginState()
+    val hasUsername: Boolean
+        get() = !firstName.isNullOrBlank() && !lastName.isNullOrBlank()
 }

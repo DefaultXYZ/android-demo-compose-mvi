@@ -15,15 +15,19 @@ import javax.inject.Inject
 class DemoMainViewModel @Inject constructor(
     @IODispatcher private val dispatcher: CoroutineDispatcher,
     private val isUserExistsUseCase: IsUserExistsUseCase
-) : BaseViewModel<DemoMainIntent, DemoMainState>(DemoMainState.Loading) {
+) : BaseViewModel<DemoMainIntent, DemoMainState>(DemoMainState()) {
     override fun handleIntent(intent: DemoMainIntent) {
         when (intent) {
             DemoMainIntent.LoadLoginState -> {
                 viewModelScope.launch(dispatcher) {
                     if (isUserExistsUseCase()) {
-                        mutableState.emit(DemoMainState.LoggedIn)
+                        stateValue.copy(
+                            isLoggedIn = true
+                        ).emit()
                     } else {
-                        mutableState.emit(DemoMainState.NoUserExists)
+                        stateValue.copy(
+                            isLoggedIn = false
+                        ).emit()
                     }
                 }
             }
@@ -35,8 +39,6 @@ sealed class DemoMainIntent : BaseIntent() {
     object LoadLoginState : DemoMainIntent()
 }
 
-sealed class DemoMainState : BaseState() {
-    object Loading : DemoMainState()
-    object LoggedIn : DemoMainState()
-    object NoUserExists : DemoMainState()
-}
+data class DemoMainState(
+    val isLoggedIn: Boolean? = null
+) : BaseState

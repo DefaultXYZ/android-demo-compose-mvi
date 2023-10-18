@@ -15,13 +15,15 @@ import javax.inject.Inject
 class FeatureAViewModel @Inject constructor(
     @IODispatcher private val ioDispatcher: CoroutineDispatcher,
     private val getCurrentUserUseCase: GetCurrentUserUseCase
-) : BaseViewModel<FeatureAIntent, FeatureAState>(FeatureAState.OnInit) {
+) : BaseViewModel<FeatureAIntent, FeatureAState>(FeatureAState()) {
     override fun handleIntent(intent: FeatureAIntent) {
         when (intent) {
             FeatureAIntent.FetchCurrentUser -> {
                 viewModelScope.launch(ioDispatcher) {
                     with(getCurrentUserUseCase()) {
-                        FeatureAState.UserReceived("$firstName $lastName")
+                        stateValue.copy(
+                            username = "$firstName $lastName"
+                        )
                     }.emit()
                 }
             }
@@ -33,7 +35,6 @@ sealed class FeatureAIntent : BaseIntent() {
     object FetchCurrentUser : FeatureAIntent()
 }
 
-sealed class FeatureAState : BaseState() {
-    object OnInit : FeatureAState()
-    data class UserReceived(val username: String) : FeatureAState()
-}
+data class FeatureAState(
+    val username: String? = null
+) : BaseState
