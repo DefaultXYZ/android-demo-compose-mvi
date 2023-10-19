@@ -1,4 +1,4 @@
-package com.defaultxyz.demo.presentation
+package com.defaultxyz.splash.presentation
 
 import androidx.lifecycle.viewModelScope
 import com.defaultxyz.domain.login.IsUserExistsUseCase
@@ -12,13 +12,13 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class DemoMainViewModel @Inject constructor(
+class SplashViewModel @Inject constructor(
     @IODispatcher private val dispatcher: CoroutineDispatcher,
     private val isUserExistsUseCase: IsUserExistsUseCase
-) : BaseViewModel<DemoMainIntent, DemoMainState>(DemoMainState()) {
-    override fun handleIntent(intent: DemoMainIntent) {
+) : BaseViewModel<SplashIntent, SplashState>(SplashState()) {
+    override fun handleIntent(intent: SplashIntent) {
         when (intent) {
-            DemoMainIntent.LoadLoginState -> {
+            SplashIntent.LoadLoginState -> {
                 viewModelScope.launch(dispatcher) {
                     if (isUserExistsUseCase()) {
                         stateValue.copy(
@@ -35,10 +35,10 @@ class DemoMainViewModel @Inject constructor(
     }
 }
 
-sealed class DemoMainIntent : BaseIntent() {
-    object LoadLoginState : DemoMainIntent()
+sealed class SplashIntent : BaseIntent() {
+    object LoadLoginState : SplashIntent()
 }
 
-data class DemoMainState(
+data class SplashState(
     val isLoggedIn: Boolean? = null
 ) : BaseState

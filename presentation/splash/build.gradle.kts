@@ -1,25 +1,18 @@
 plugins {
-    id(Plugins.androidApplication)
+    id(Plugins.androidLibrary)
     id(Plugins.kotlinAndroid)
     id(Plugins.kotlinKapt)
-    id(Plugins.hiltAndroid)
 }
 
 android {
-    namespace = AndroidConfig.getNamespace("demo")
+    namespace = AndroidConfig.getNamespace("splash")
     compileSdk = AndroidConfig.compileSdk
 
     defaultConfig {
-        applicationId = AndroidConfig.applicationId
         minSdk = AndroidConfig.minSdk
-        targetSdk = AndroidConfig.targetSdk
-        versionCode = AndroidConfig.versionCode
-        versionName = AndroidConfig.versionName
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables {
-            useSupportLibrary = true
-        }
+        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
@@ -41,19 +34,9 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = "1.4.3"
     }
-    packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
-    }
 }
 
 dependencies {
-    implementation(project(Modules.splash))
-    implementation(project(Modules.login))
-    implementation(project(Modules.featureA))
-    implementation(project(Modules.featureB))
-    implementation(project(Modules.featureC))
     implementation(project(Modules.domain))
     implementation(project(Modules.coreUI))
     implementation(project(Modules.coreLocalisation))
@@ -68,9 +51,7 @@ dependencies {
     implementation(Dependencies.composeUI)
     implementation(Dependencies.composeUIGraphics)
     implementation(Dependencies.composeUIToolingPreview)
-    implementation(Dependencies.composeMaterial)
     implementation(Dependencies.composeMaterial3)
-    implementation(Dependencies.navigationCompose)
 
     implementation(Dependencies.hiltAndroid)
     implementation(Dependencies.hiltNavigation)

@@ -55,6 +55,7 @@ object Plugins {
 }
 
 object Modules {
+    const val splash = ":presentation:splash"
     const val login = ":presentation:login"
     const val featureA = ":presentation:feature-a"
     const val featureB = ":presentation:feature-b"
