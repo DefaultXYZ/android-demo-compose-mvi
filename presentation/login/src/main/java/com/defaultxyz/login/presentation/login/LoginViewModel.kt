@@ -16,8 +16,8 @@ import javax.inject.Inject
 class LoginViewModel @Inject constructor(
     @IODispatcher private val ioDispatcher: CoroutineDispatcher,
     private val getRandomUserUseCase: GetRandomUserUseCase,
-    private val saveUserUseCase: SaveUserUseCase
-) : BaseViewModel<LoginIntent, LoginState>(LoginState()) {
+    private val saveUserUseCase: SaveUserUseCase,
+) : BaseViewModel<LoginIntent, LoginState>(LoginState.Init) {
     override fun handleIntent(intent: LoginIntent) {
         when (intent) {
             LoginIntent.GenerateRandomName -> generateRandomName()
@@ -28,10 +28,7 @@ class LoginViewModel @Inject constructor(
     private fun generateRandomName() {
         viewModelScope.launch(ioDispatcher) {
             getRandomUserUseCase().let {
-                stateValue.copy(
-                    firstName = it.first,
-                    lastName = it.second
-                )
+                LoginState.NewNameGenerated(it.first, it.second)
             }.emit()
         }
     }
@@ -39,30 +36,32 @@ class LoginViewModel @Inject constructor(
     private fun saveUser(firstName: String, lastName: String) {
         viewModelScope.launch(ioDispatcher) {
             saveUserUseCase(firstName to lastName)
-            stateValue.copy(
-                loginSuccessful = true
-            ).emit()
+            LoginState.LoginFinished.emit()
         }
     }
 
 }
 
-sealed class LoginIntent : BaseIntent() {
-    object GenerateRandomName : LoginIntent()
+sealed interface LoginIntent : BaseIntent {
+    object GenerateRandomName : LoginIntent
     data class SaveUser(
         val firstName: String,
-        val lastName: String
-    ) : LoginIntent()
+        val lastName: String,
+    ) : LoginIntent
 }
 
-data class LoginState(
-    val firstName: String? = null,
-    val lastName: String? = null,
-    val loginSuccessful: Boolean? = null
-) : BaseState {
-    val username: String
-        get() = listOfNotNull(firstName, lastName).joinToString(" ")
+sealed interface LoginState : BaseState {
+    object Init : LoginState
 
-    val hasUsername: Boolean
-        get() = !firstName.isNullOrBlank() && !lastName.isNullOrBlank()
+    object Error : LoginState
+
+    data class NewNameGenerated(
+        val firstName: String,
+        val lastName: String,
+    ) : LoginState {
+        val username: String
+            get() = listOfNotNull(firstName, lastName).joinToString(" ")
+    }
+
+    object LoginFinished : LoginState
 }

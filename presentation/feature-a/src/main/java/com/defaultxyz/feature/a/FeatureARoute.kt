@@ -12,27 +12,29 @@ import com.defaultxyz.ui.components.Header
 import com.defaultxyz.ui.compose.DefaultPreview
 
 @Composable
-fun FeatureAScreen(
-    viewModel: FeatureAViewModel = hiltViewModel()
+fun FeatureARoute(
+    viewModel: FeatureAViewModel = hiltViewModel(),
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     viewModel.handleIntent(FeatureAIntent.FetchCurrentUser)
-    FeatureAContent(state = state)
+    FeatureAScreen(state = state)
 }
 
 @Composable
-internal fun FeatureAContent(
+internal fun FeatureAScreen(
+    state: FeatureAState,
     modifier: Modifier = Modifier,
-    state: FeatureAState = FeatureAState()
 ) {
     Column(modifier) {
         Header(stringResource(R.string.feature_a))
-        Body(state.username.orEmpty())
+        if (state is FeatureAState.UsernameReceived) {
+            Body(state.username)
+        }
     }
 }
 
 @DefaultPreview
 @Composable
-internal fun FeatureAContentPreview() {
-    FeatureAContent()
+internal fun FeatureAScreenPreview() {
+    FeatureAScreen(FeatureAState.Init)
 }

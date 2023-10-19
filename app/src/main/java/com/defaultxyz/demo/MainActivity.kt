@@ -1,8 +1,9 @@
-package com.defaultxyz.demo.presentation
+package com.defaultxyz.demo
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import com.defaultxyz.demo.presentation.DemoMainAppScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

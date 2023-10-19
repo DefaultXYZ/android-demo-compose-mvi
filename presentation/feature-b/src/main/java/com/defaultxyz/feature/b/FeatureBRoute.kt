@@ -1,4 +1,4 @@
-package com.defaultxyz.feature.c
+package com.defaultxyz.feature.b
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
@@ -8,19 +8,19 @@ import com.defaultxyz.ui.components.Header
 import com.defaultxyz.ui.compose.DefaultPreview
 
 @Composable
-fun FeatureCScreen() {
-    FeatureCContent()
+fun FeatureBRoute() {
+    FeatureBScreen()
 }
 
 @Composable
-internal fun FeatureCContent(modifier: Modifier = Modifier) {
+internal fun FeatureBScreen(modifier: Modifier = Modifier) {
     Column(modifier) {
-        Header(stringResource(R.string.feature_c))
+        Header(stringResource(R.string.feature_b))
     }
 }
 
 @DefaultPreview
 @Composable
-internal fun FeatureCContentPreview() {
-    FeatureCContent()
+internal fun FeatureBScreenPreview() {
+    FeatureBScreen()
 }

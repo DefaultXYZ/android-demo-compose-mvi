@@ -2,21 +2,19 @@ package com.defaultxyz.login
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
-import androidx.navigation.compose.composable
-import androidx.navigation.navigation
-import com.defaultxyz.login.presentation.login.LoginScreen
-import com.defaultxyz.login.presentation.success.LoginSuccessScreen
-import com.defaultxyz.ui.routing.ParentScreenRoute.Login
+import com.defaultxyz.login.presentation.login.LoginRoute
+import com.defaultxyz.login.presentation.success.LoginSuccessRoute
+import com.defaultxyz.ui.routing.AppRoute.Login
+import com.defaultxyz.ui.routing.composable
+import com.defaultxyz.ui.routing.navigation
 
 fun NavGraphBuilder.loginGraph(navController: NavController) {
-    navigation(route = Login.route, startDestination = Login.StartLogin.route) {
-        composable(Login.StartLogin.route) {
-            LoginScreen(onLoginSuccess = {
-                navController.navigate(Login.LoginSuccess.route)
-            })
+    navigation(route = Login, startDestination = Login.StartLogin) {
+        composable(Login.StartLogin) {
+            LoginRoute(navController)
         }
-        composable(Login.LoginSuccess.route) {
-            LoginSuccessScreen()
+        composable(Login.LoginSuccess) {
+            LoginSuccessRoute(navController)
         }
     }
 }

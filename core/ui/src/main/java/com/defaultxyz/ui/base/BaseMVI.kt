@@ -5,11 +5,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
 abstract class BaseViewModel<I : BaseIntent, S : BaseState>(
-    initialState: S
+    initialState: S,
 ) : ViewModel() {
-    protected val stateValue: S
-        get() = state.value
-
     private val mutableState: MutableStateFlow<S> = MutableStateFlow(initialState)
     val state: StateFlow<S> = mutableState
 
@@ -20,6 +17,6 @@ abstract class BaseViewModel<I : BaseIntent, S : BaseState>(
     }
 }
 
-abstract class BaseIntent
+interface BaseIntent
 
 interface BaseState

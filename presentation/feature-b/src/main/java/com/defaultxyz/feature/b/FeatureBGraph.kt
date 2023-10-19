@@ -2,14 +2,14 @@ package com.defaultxyz.feature.b
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
-import androidx.navigation.compose.composable
-import androidx.navigation.navigation
-import com.defaultxyz.ui.routing.ScreenRoute.FeatureB
+import com.defaultxyz.ui.routing.FeatureRoute.FeatureB
+import com.defaultxyz.ui.routing.composable
+import com.defaultxyz.ui.routing.navigation
 
 fun NavGraphBuilder.featureBGraph(navController: NavController) {
-    navigation(route = FeatureB.route, startDestination = FeatureB.ScreenB1.route) {
-        composable(FeatureB.ScreenB1.route) {
-            FeatureBScreen()
+    navigation(route = FeatureB, startDestination = FeatureB.ScreenB1) {
+        composable(FeatureB.ScreenB1) {
+            FeatureBRoute()
         }
     }
 }

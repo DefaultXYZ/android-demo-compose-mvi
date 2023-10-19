@@ -42,6 +42,7 @@ dependencies {
     implementation(Dependencies.composeUIGraphics)
     implementation(Dependencies.composeUIToolingPreview)
     implementation(Dependencies.composeMaterial3)
+    implementation(Dependencies.navigationCompose)
 
     debugImplementation(Dependencies.composeDebugUITooling)
     debugImplementation(Dependencies.composeDebugUITestManifest)

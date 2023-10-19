@@ -4,12 +4,12 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.defaultxyz.demo.ui.theme.DemoComposeTheme
 import com.defaultxyz.login.loginGraph
 import com.defaultxyz.splash.splashGraph
-import com.defaultxyz.ui.routing.ParentScreenRoute
+import com.defaultxyz.ui.routing.AppRoute
+import com.defaultxyz.ui.routing.composable
 
 @Composable
 fun DemoMainAppScreen(
@@ -27,12 +27,12 @@ fun DemoParentNavigation() {
     val parentNavController = rememberNavController()
     NavHost(
         navController = parentNavController,
-        startDestination = ParentScreenRoute.Splash.route
+        startDestination = AppRoute.Splash.route
     ) {
         splashGraph(parentNavController)
         loginGraph(parentNavController)
-        composable(ParentScreenRoute.MainContent.route) {
-            DemoMainContent()
+        composable(AppRoute.MainContent) {
+            DemoMainRoute()
         }
     }
 }
